@@ -1,18 +1,15 @@
-//Add Dependencies (incl Nodemon for hot refresh)
 const express = require("express")
-// const nodemon = require ("nodemon")
 const path = require("path")
 const fs = require("fs")
-const db = require("./db/db.json")
-const { json } = require("express")
+const {json} = require("express")
 
-let app = express()
-let PORT = process.env.PORT || 3000 //dynamic port
+var app = express()
+var PORT = process.env.PORT || 7500 //dynamic port
 
 //for POST
 app.use(express.urlencoded({extended: true})) //recognizes incoming object as string/array. build on body-parser.
 app.use(express.json()) //recognize incoming object as a JSON.
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, "public")))
 
 //Paths - Get
 app.get("/", (req, res)=>{
@@ -41,8 +38,8 @@ app.get("/public/assets/css/styles.css", (req, res)=> {
 
 //Paths - Post
 app.post("/api/notes", (req, res)=>{
-    let newNote = req.body //newNote = content sent by client
-    newNote.id = newNote.id.replace(/\s+/g, "").toLowerCase() //gives note an id to be grabbed by
+    let newNote = req.body; //newNote = content sent by client
+    newNote.id = newNote.title.replace(/\s+/g, "").toLowerCase() //gives note an id to be grabbed by
     fs.readFile("./db/db.json", "utf-8", (err, data)=>{ //utf-8 eliminates the need for server-side logic to individually determine charEnc for each incoming form submission.
         let oldNote = JSON.parse(data) //convert json string to object so new note can be pushed in
         oldNote.push(newNote) //push newnote to oldnote
@@ -52,9 +49,7 @@ app.post("/api/notes", (req, res)=>{
 })
 
 //Paths - Delete
-// app.delete("/api/notes/:id", (req, res)=>{
-//     res.send
-// })
+// app.delete("/api/notes/:id", (req,res)=>{
 
 app.listen(PORT, ()=>{
     console.log(`app listening @ ${PORT}`)
