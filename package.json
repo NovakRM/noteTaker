@@ -1,13 +1,23 @@
 {
-  "name": "note-taker",
+  "name": "noteTaker",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Osteophagy/noteTaker.git"
+  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Osteophagy/noteTaker/issues"
+  },
+  "homepage": "https://github.com/Osteophagy/noteTaker#readme",
   "dependencies": {
     "express": "^4.17.1"
   }
