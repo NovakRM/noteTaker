@@ -55,8 +55,8 @@ app.delete("/api/notes/:id", (req, res)=>{
         if (err) throw err
         let getNotes = JSON.parse(data) //convert json string to object
         for (let i=0; i<getNotes.length; i++){
-            if (getNotes.id !== id){
-                getNotes.splice(id, 1) //start at id, remove one
+            if (getNotes[i].id === id){
+                getNotes.splice(i, 1) //remove one from index
             }
         }
         fs.writeFile("./db/db.json", JSON.stringify(getNotes),()=>{}) //overwrite db now that the note has been removed
