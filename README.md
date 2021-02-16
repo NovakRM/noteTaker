@@ -11,9 +11,10 @@
 
   ## Installation
    If you would like to run this application on your own machine in localhost, you need node and express installed. 
-   Open your terminal and spin up the server with "node server.js" -- navigate to http://localhost:7500/ or a port of your choosing, be sure to have edited the PORT variable prior, though. 
+   Open your terminal and spin up the server with "node server.js" -- navigate to localhost:7500 or a port of your choosing, be sure to have edited the PORT variable prior, though. 
 
-   If you would like to run this application in the browser, simply visit (add deployed heroku app)
+   If you would like to run this application in the browser, simply visit:
+   * [the deployed app](https://protected-dusk-10520.herokuapp.com/)
 
   ## Questions
   * [GitHub Profile](http://github.com/Osteophagy)
