@@ -1,7 +1,7 @@
+//Dependencies
 const express = require("express")
 const path = require("path")
 const fs = require("fs")
-const {json} = require("express")
 
 var app = express()
 var PORT = process.env.PORT || 7500 //dynamic port
@@ -39,7 +39,7 @@ app.get("/public/assets/css/styles.css", (req, res)=> {
 //Paths - Post
 app.post("/api/notes", (req, res)=>{
     let newNote = req.body; //newNote = content sent by client
-    newNote.id = newNote.title.replace(/\s+/g, "").toLowerCase() //gives note an id to be grabbed by
+    newNote.id = newNote.title.replace(/\s+/g, "").toLowerCase() //gives note an id to be grabbed by (removes space and de-capitalizes. title=New Note -> id=newnote)
     fs.readFile("./db/db.json", "utf-8", (err, data)=>{ //utf-8 eliminates the need for server-side logic to individually determine charEnc for each incoming form submission.
         let oldNote = JSON.parse(data) //convert json string to object so new note can be pushed in
         oldNote.push(newNote) //push newnote to oldnote
@@ -49,7 +49,20 @@ app.post("/api/notes", (req, res)=>{
 })
 
 //Paths - Delete
-// app.delete("/api/notes/:id", (req,res)=>{
+app.delete("/api/notes/:id", (req, res)=>{
+    let id = req.params.id; //id = id in returned note object
+    fs.readFile("./db/db.json", "utf-8", (err, data)=>{
+        if (err) throw err
+        let getNotes = JSON.parse(data) //convert json string to object
+        for (let i=0; i<getNotes.length; i++){
+            if (getNotes.id !== id){
+                getNotes.splice(id, 1) //start at id, remove one
+            }
+        }
+        fs.writeFile("./db/db.json", JSON.stringify(getNotes),()=>{}) //overwrite db now that the note has been removed
+        res.json(getNotes) //send JSON response
+    })
+})
 
 app.listen(PORT, ()=>{
     console.log(`app listening @ ${PORT}`)
